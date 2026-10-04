@@ -1,0 +1,59 @@
+{
+  "id": "./",
+  "name": "Portal Teater Q",
+  "short_name": "Teater Q",
+  "description": "Portal Resmi & Layanan Digital UKM Paguyuban Teater Q UIN Sunan Ampel Surabaya",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "lang": "id",
+  "dir": "ltr",
+  "categories": ["community", "entertainment", "social", "utilities"],
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Isi Pulsa & Tagihan",
+      "short_name": "Topup Pulsa",
+      "description": "Beli pulsa, kuota, token PLN & e-wallet Teater Q",
+      "url": "./index.html?pwa_nav=qreload",
+      "icons": [{ "src": "assets/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Katalog Anggota",
+      "short_name": "Anggota",
+      "description": "Lihat data dan direktori anggota Paguyuban Teater Q",
+      "url": "./index.html?pwa_nav=anggota",
+      "icons": [{ "src": "assets/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Laporan Kas & Hibah",
+      "short_name": "Laporan Kas",
+      "description": "Transparansi dana abadi & hibah kegiatan Teater Q",
+      "url": "./index.html?pwa_nav=laporan-dana",
+      "icons": [{ "src": "assets/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Marketplace Teater Q",
+      "short_name": "Q-Market",
+      "description": "Katalog merchandise dan produk Paguyuban Teater Q",
+      "url": "./index.html?pwa_nav=marketplace",
+      "icons": [{ "src": "assets/logo.png", "sizes": "192x192" }]
+    }
+  ]
+}

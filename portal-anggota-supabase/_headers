@@ -1,0 +1,28 @@
+# Netlify High-Performance CDN Caching & Self-Healing Policy
+# Portal Anggota Teater Q UIN Sunan Ampel Surabaya
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+
+# 1. HTML selalu segar: browser langsung mengambil perubahan kode terbaru secara otomatis (0 detik tanpa refresh cache)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 2. Skrip JS & Style CSS: di-cache di CDN Netlify untuk loading kilat, namun selalu segar jika ada versi baru
+/js/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/css/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+# 3. Aset Gambar, Logo, dan Favicon: cache panjang & super cepat
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=31536000, immutable

@@ -1,0 +1,94 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[[headers]]
+  for = "/.well-known/assetlinks.json"
+  [headers.values]
+    Content-Type = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/assetlinks.json"
+  [headers.values]
+    Content-Type = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/api-vip/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "*"
+
+[[headers]]
+  for = "/api-digi/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "*"
+
+[[redirects]]
+  from = "/.well-known/assetlinks.json"
+  to = "/assetlinks.json"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/verifikasi"
+  to = "/konfirmasi.html"
+  status = 200
+
+[[redirects]]
+  from = "/verifikasi/*"
+  to = "/konfirmasi.html"
+  status = 200
+
+# Gateway Serverless VIP Reseller (Otomatis Lolos Validasi IP Whitelist)
+[[redirects]]
+  from = "/api-vip-proxy"
+  to = "/.netlify/functions/vip-order"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api-vip-proxy/*"
+  to = "/.netlify/functions/vip-order"
+  status = 200
+  force = true
+
+# Proxy resmi Netlify untuk API VIP Reseller (100% Bebas Blokir CORS di HP & PC)
+[[redirects]]
+  from = "/api-vip/*"
+  to = "https://vip-reseller.co.id/api/:splat"
+  status = 200
+  force = true
+
+# Proxy resmi Netlify untuk CounterAPI (Bebas Blokir AdBlock, CORS & Timeout di HP/PC)
+[[redirects]]
+  from = "/api-counter/*"
+  to = "https://counterapi.com/api/:splat"
+  status = 200
+  force = true
+
+# Proxy resmi Netlify untuk API DigiFlazz (100% Bebas Blokir CORS di HP & PC)
+[[redirects]]
+  from = "/api-digi/*"
+  to = "https://api.digiflazz.com/v1/:splat"
+  status = 200
+  force = true
+
+# Endpoint Cek IP Outbound Netlify
+[[redirects]]
+  from = "/cek-ip"
+  to = "https://api.ipify.org"
+  status = 200
+  force = true
+
+
+

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub Pengujian Mobile - Portal Teater Q</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cinzel:wght@700&family=JetBrains+Mono:wght@500;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #020617;
+      color: #e2e8f0;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+  <div class="w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+    <!-- Header -->
+    <div class="text-center mb-5">
+      <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto mb-3 text-xl shadow-lg shadow-amber-500/10">
+        <i class="fa-solid fa-mobile-screen"></i>
+      </div>
+      <h1 class="text-base sm:text-lg font-black text-white font-['Cinzel'] tracking-wide">Hub Pengujian Mobile Portal Teater Q</h1>
+      <p class="text-xs text-slate-400 mt-1">Uji Mading, MUTER Paperless &amp; Fitur Portal langsung di smartphone Anda</p>
+    </div>
+
+    <!-- QR Code Box (Untuk di-scan dari layar laptop ke HP) -->
+    <div class="bg-slate-950 border border-slate-800/80 rounded-2xl p-4 text-center mb-5">
+      <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-qrcode text-amber-400"></i>
+        <span>Scan Pakai Kamera HP Anda</span>
+      </div>
+      <div class="inline-block p-2.5 bg-white rounded-xl shadow-inner mx-auto mb-2">
+        <img id="qrImage" src="" alt="QR Code Pengujian Mobile" class="w-36 h-36 mx-auto object-contain" />
+      </div>
+      <div class="text-[11px] text-slate-300 font-mono bg-slate-900 py-1.5 px-3 rounded-lg border border-slate-800 break-all select-all flex items-center justify-between gap-2">
+        <span id="currentUrlText">Memuat URL...</span>
+        <button onclick="copyCurrentUrl()" class="text-amber-400 hover:text-amber-300 text-xs shrink-0 p-1" title="Salin URL">
+          <i class="fa-regular fa-copy"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tombol Khusus: Langsung Masuk Portal Teater Q -->
+    <div class="mb-4">
+      <button onclick="directLoginAndGo('beranda')" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-extrabold text-xs tracking-wide shadow-lg shadow-amber-500/25 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-bolt text-sm"></i>
+        <span>Buka Portal &amp; Login Otomatis (Uji Cepat)</span>
+      </button>
+      <div class="text-[10.5px] text-slate-400 text-center mt-1.5">
+        Akun resmi portal: <span class="text-amber-400 font-mono font-bold">Q</span> / <span class="text-amber-400 font-mono font-bold">1992</span>
+      </div>
+    </div>
+
+    <!-- Menu Navigasi Halaman yang Diuji -->
+    <div class="space-y-2">
+      <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1">
+        Pilih Halaman untuk Diuji:
+      </div>
+
+      <!-- 1. Beranda Utama -->
+      <a id="linkBeranda" href="index.html#beranda" class="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-500/50 transition group">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm group-hover:scale-105 transition">
+            <i class="fa-solid fa-house"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-amber-300 transition">Beranda Portal Utama</div>
+            <div class="text-[10px] text-slate-400">Akses cepat, header intro, dan menu utama</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition"></i>
+      </a>
+
+      <!-- 2. Mading Karya Anggota -->
+      <a id="linkMading" href="index.html#mading" class="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-fuchsia-500/50 transition group">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center text-sm group-hover:scale-105 transition">
+            <i class="fa-solid fa-palette"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-fuchsia-300 transition">🎨 Mading Karya Anggota</div>
+            <div class="text-[10px] text-slate-400">Puisi utuh, seni rupa zoom, paperless naskah</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-fuchsia-400 group-hover:translate-x-0.5 transition"></i>
+      </a>
+
+      <!-- 3. MUTER Read-Only Paperless -->
+      <a id="linkMuter" href="index.html#muter" class="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-teal-500/50 transition group">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center text-sm group-hover:scale-105 transition">
+            <i class="fa-solid fa-scroll"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-teal-300 transition">📜 MUTER (Sidang Paperless)</div>
+            <div class="text-[10px] text-slate-400">E-Reader AD, ART, Tatib, TTD digital presidium</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-teal-400 group-hover:translate-x-0.5 transition"></i>
+      </a>
+
+      <!-- 4. Arsip Karya -->
+      <a id="linkArsip" href="index.html#arsip" class="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-emerald-500/50 transition group">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm group-hover:scale-105 transition">
+            <i class="fa-solid fa-box-archive"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-emerald-300 transition">Arsip Naskah &amp; Karya</div>
+            <div class="text-[10px] text-slate-400">Pusat rujukan naskah lakon &amp; bahan komunitas</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition"></i>
+      </a>
+
+      <!-- 5. Direktori Anggota -->
+      <a id="linkAnggota" href="index.html#anggota" class="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-blue-500/50 transition group">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm group-hover:scale-105 transition">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-blue-300 transition">Direktori Anggota &amp; KTA</div>
+            <div class="text-[10px] text-slate-400">Cari anggota, filter angkatan, unduh KTA digital</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-blue-400 group-hover:translate-x-0.5 transition"></i>
+      </a>
+    </div>
+
+    <!-- Petunjuk Sederhana -->
+    <div class="mt-5 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300/90 leading-relaxed">
+      <i class="fa-solid fa-circle-info mr-1 text-amber-400"></i>
+      <strong>Tips Pengujian:</strong> Pastikan HP dan laptop terhubung di Wi-Fi atau Hotspot yang sama. Jika sudah terhubung, langsung buka kamera HP dan arahkan ke QR Code di atas.
+    </div>
+  </div>
+
+  <script>
+    // Deteksi IP otomatis
+    const currentHost = window.location.hostname;
+    const currentPort = window.location.port || "5500";
+    const isLocalhost = currentHost === "localhost" || currentHost === "127.0.0.1";
+    
+    // IP target default jika dibuka di localhost laptop
+    const targetHost = isLocalhost ? "192.168.1.18" : currentHost;
+    const targetBaseUrl = `http://${targetHost}:${currentPort}`;
+    const targetHubUrl = `${targetBaseUrl}/mobile_hub.html`;
+
+    // Tampilkan Text URL
+    const urlTextEl = document.getElementById("currentUrlText");
+    if (urlTextEl) urlTextEl.textContent = targetHubUrl;
+
+    // Generate QR Code via QRServer API (High-res, fast & reliable)
+    const qrImage = document.getElementById("qrImage");
+    if (qrImage) {
+      qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(targetHubUrl)}`;
+    }
+
+    // Update Links
+    const links = {
+      linkBeranda: `${targetBaseUrl}/index.html#beranda`,
+      linkMading: `${targetBaseUrl}/index.html#mading`,
+      linkMuter: `${targetBaseUrl}/index.html#muter`,
+      linkArsip: `${targetBaseUrl}/index.html#arsip`,
+      linkAnggota: `${targetBaseUrl}/index.html#anggota`
+    };
+
+    for (const [id, url] of Object.entries(links)) {
+      const el = document.getElementById(id);
+      if (el) el.href = url;
+    }
+
+    function directLoginAndGo(page) {
+      const session = {
+        status: "active",
+        user: "Penguji HP Teater Q",
+        loginAt: Date.now()
+      };
+      localStorage.setItem("tq_user_session", JSON.stringify(session));
+      window.location.href = `index.html#${page}`;
+    }
+
+    function copyCurrentUrl() {
+      navigator.clipboard.writeText(targetHubUrl).then(() => {
+        alert("URL berhasil disalin: " + targetHubUrl);
+      }).catch(() => {
+        prompt("Salin URL ini:", targetHubUrl);
+      });
+    }
+  </script>
+</body>
+</html>

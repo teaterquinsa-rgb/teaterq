@@ -1,0 +1,15 @@
+/.well-known/assetlinks.json  /assetlinks.json  200!
+/.well-known/*                /.well-known/:splat  200
+
+# Netlify Redirects & Clean URLs
+/privacy                      /privacy.html     200
+/verifikasi                   /konfirmasi.html  200
+/verifikasi/*                 /konfirmasi.html  200
+
+# Netlify Proxies & Functions untuk API & Server
+/api-vip-proxy   /.netlify/functions/vip-order          200!
+/api-vip-proxy/* /.netlify/functions/vip-order          200!
+/api-vip/*       https://vip-reseller.co.id/api/:splat  200!
+/api-counter/*   https://counterapi.com/api/:splat      200!
+/api-digi/*      https://api.digiflazz.com/v1/:splat    200!
+/cek-ip          https://api.ipify.org                  200!

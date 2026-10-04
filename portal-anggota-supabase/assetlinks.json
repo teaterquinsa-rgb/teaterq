@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.teaterq.portal",
+      "sha256_cert_fingerprints": [
+        "9C:12:9B:05:90:33:15:96:86:12:96:A1:96:1E:48:67:39:0D:A0:29:09:59:BE:7E:05:A9:29:F5:43:24:64:76",
+        "DC:E6:96:B4:3E:08:70:47:B0:B8:05:02:9C:2C:AA:E8:1A:50:85:4F:34:80:4B:A1:0B:3F:C6:B5:9A:B3:F5:22"
+      ]
+    }
+  }
+]

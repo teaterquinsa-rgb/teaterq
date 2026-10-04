@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verifikasi Pesanan - Pasar Karya Teater Q</title>
+  <meta name="theme-color" content="#020617" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4 selection:bg-red-900 selection:text-white">
+
+  <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-8 text-center relative overflow-hidden">
+    <!-- Glow Accent -->
+    <div class="absolute -top-24 -left-24 w-48 h-48 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Header Logo & Title -->
+    <div class="flex items-center justify-center gap-3 mb-5">
+      <img src="assets/logo.png" alt="Logo Teater Q" class="w-10 h-10 object-contain drop-shadow" onerror="this.style.display='none';" />
+      <div class="text-left">
+        <div class="text-[10px] font-bold text-red-400 tracking-wider uppercase">UKM Paguyuban Teater Q</div>
+        <div class="text-sm font-extrabold text-white tracking-wide">VERIFIKASI ORDER PASAR KARYA</div>
+      </div>
+    </div>
+
+    <!-- Status Loading State -->
+    <div id="stateLoading" class="py-8 flex flex-col items-center justify-center gap-3">
+      <div class="w-12 h-12 border-4 border-slate-700 border-t-amber-500 rounded-full animate-spin"></div>
+      <div class="text-sm font-bold text-slate-300">Memproses Verifikasi Lunas...</div>
+      <div class="text-xs text-slate-500">Memotong stok dan memperbarui database...</div>
+    </div>
+
+    <!-- Status Success State -->
+    <div id="stateSuccess" class="hidden flex-col items-center">
+      <div class="w-16 h-16 bg-emerald-500/10 border-2 border-emerald-500 text-emerald-400 rounded-full flex items-center justify-center text-2xl mb-3 shadow-lg shadow-emerald-950">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="inline-block px-3 py-1 bg-emerald-950/80 border border-emerald-700/50 text-emerald-400 rounded-full text-xs font-bold tracking-wider mb-2">
+        ✓ PEMBAYARAN LUNAS & DIVERIFIKASI
+      </div>
+      <h1 class="text-xl font-extrabold text-white mb-1" id="orderTitle">Pesanan #TQ-ORD</h1>
+      <p class="text-xs text-slate-400 mb-4">Stok produk otomatis dipotong & riwayat penjualan tersimpan.</p>
+
+      <!-- Info Card -->
+      <div class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-left text-xs space-y-2 mb-4">
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Produk</span>
+          <span class="font-bold text-white text-right max-w-[200px] truncate" id="valProduct">-</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Jumlah Item</span>
+          <span class="font-bold text-amber-400" id="valQty">1 pcs</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Total Pembayaran</span>
+          <span class="font-extrabold text-emerald-400" id="valTotal">Rp 0</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Nama Pembeli</span>
+          <span class="font-semibold text-slate-200" id="valBuyer">-</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Penjual / Lapak</span>
+          <span class="font-semibold text-cyan-300" id="valSeller">-</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5 bg-amber-950/20 px-2 py-1 rounded">
+          <span class="text-amber-400 font-bold">💳 Rek. Penjual</span>
+          <span class="font-extrabold text-white text-right max-w-[200px] truncate select-all" id="valSellerRek">-</span>
+        </div>
+        <div class="flex justify-between pt-0.5">
+          <span class="text-slate-400">Alamat / Pengiriman</span>
+          <span class="font-semibold text-slate-300 text-right max-w-[200px] truncate" id="valAddress">-</span>
+        </div>
+      </div>
+
+      <!-- Live Stock Badge -->
+      <div class="w-full bg-emerald-950/50 border border-emerald-600/40 rounded-xl py-2.5 px-3 text-center text-xs font-bold text-emerald-300 mb-5 flex items-center justify-center gap-2">
+        <i class="fas fa-boxes"></i> <span>Stok Berhasil Dipotong & Tercatat di Database</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="w-full space-y-2.5">
+        <a id="btnForwardSeller" href="#" target="_blank" class="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/60 transition-all">
+          <i class="fab fa-whatsapp text-base"></i>
+          <span>Teruskan Pesanan ke Penjual</span>
+        </a>
+
+        <a href="index.html#market" class="w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl font-semibold text-xs flex items-center justify-center gap-2 transition-all border border-slate-700">
+          <i class="fas fa-arrow-left"></i>
+          <span>Kembali ke Etalase Pasar Karya</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Status Error State -->
+    <div id="stateError" class="hidden flex-col items-center py-6">
+      <div class="w-14 h-14 bg-red-500/10 border-2 border-red-500 text-red-400 rounded-full flex items-center justify-center text-2xl mb-3 shadow-lg shadow-red-950">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div class="text-base font-bold text-white mb-1">Gagal Memproses Verifikasi</div>
+      <div class="text-xs text-slate-400 mb-4" id="errorMsg">Parameter pesanan tidak valid atau link telah kedaluwarsa.</div>
+      <a href="index.html#market" class="py-2.5 px-5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition-all">
+        Kembali ke Beranda
+      </a>
+    </div>
+
+    <!-- Footer Note -->
+    <div class="mt-6 pt-4 border-t border-slate-800/80 text-[10px] text-slate-500">
+      Sistem Portal Internal UKM Paguyuban Teater Q &bull; UIN Sunan Ampel Surabaya
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const p = new URLSearchParams(window.location.search);
+      const orderId = p.get("order") || "";
+      const productId = p.get("id") || "";
+      const productName = p.get("product") || "Produk Pasar Karya";
+      const qty = parseInt(p.get("qty") || "1", 10) || 1;
+      const total = p.get("total") || "0";
+      const buyerName = p.get("buyer") || "Pembeli";
+      const buyerWa = p.get("buyerWa") || "";
+      const sellerName = p.get("seller") || "Penjual";
+      const sellerWaRaw = p.get("sellerWa") || "";
+      const address = p.get("address") || "COD / Ambil Langsung";
+
+      if (!orderId && !productId) {
+        document.getElementById("stateLoading").classList.add("hidden");
+        document.getElementById("stateError").classList.remove("hidden");
+        document.getElementById("stateError").classList.add("flex");
+        return;
+      }
+
+      // Tampilkan data ke UI
+      document.getElementById("orderTitle").textContent = `Pesanan #${orderId}`;
+      document.getElementById("valProduct").textContent = productName;
+      document.getElementById("valQty").textContent = `${qty} pcs`;
+      document.getElementById("valTotal").textContent = `Rp ${Number(total).toLocaleString("id-ID")}`;
+      document.getElementById("valBuyer").textContent = buyerName;
+      const sellerRek = p.get("sellerRek") || "Hubungi Penjual";
+      document.getElementById("valSeller").textContent = sellerName;
+      document.getElementById("valSellerRek").textContent = sellerRek;
+      document.getElementById("valAddress").textContent = address;
+
+      // Siapkan Link Forward ke WhatsApp Penjual
+      let cleanSellerWa = sellerWaRaw.replace(/[^0-9]/g, "");
+      if (cleanSellerWa.startsWith("0")) cleanSellerWa = "62" + cleanSellerWa.slice(1);
+
+      const forwardMsg = `Halo kak ${sellerName}, dana pesanan Q Store Teater Q berikut sudah *LUNAS & DIVERIFIKASI* oleh Admin Bendahara:\n\n` +
+        `*No. Order:* #${orderId}\n` +
+        `*Produk:* ${productName} (${qty} pcs)\n` +
+        `*Nama Pembeli:* ${buyerName}\n` +
+        `*Alamat Kirim:* ${address}\n\n` +
+        `Pembeli sudah mengunggah bukti transfer yang valid ke Admin. Mohon segera dipacking dan dikirim ke pembeli. Jika sudah ada bukti resi kurir, silakan kirimkan fotonya ke Admin ya. Terima kasih!`;
+
+      const btnForward = document.getElementById("btnForwardSeller");
+      if (cleanSellerWa && btnForward) {
+        btnForward.href = `https://wa.me/${cleanSellerWa}?text=${encodeURIComponent(forwardMsg)}`;
+        btnForward.querySelector("span").textContent = `Teruskan Pesanan ke Penjual (${sellerName})`;
+      } else if (btnForward) {
+        btnForward.style.display = "none";
+      }
+
+      // Kirim sinyal update ke Google Apps Script di background
+      const targetScript = (typeof SCRIPT_MARKETPLACE !== "undefined") ? SCRIPT_MARKETPLACE : "";
+      if (targetScript) {
+        const updateParams = new URLSearchParams({
+          action: "confirm_order",
+          id: productId,
+          product: productName,
+          qty: qty,
+          order: orderId,
+          total: total,
+          buyer: buyerName,
+          buyerWa: buyerWa,
+          seller: sellerName,
+          sellerWa: cleanSellerWa,
+          address: address
+        });
+
+        // Panggil endpoint secara asynchronous
+        fetch(`${targetScript}?${updateParams.toString()}`, { mode: "no-cors" })
+          .catch(err => console.log("Sync background:", err));
+      }
+
+      // Transisi ke Success State dengan mulus
+      setTimeout(() => {
+        document.getElementById("stateLoading").classList.add("hidden");
+        const stateSuccess = document.getElementById("stateSuccess");
+        stateSuccess.classList.remove("hidden");
+        stateSuccess.classList.add("flex");
+      }, 700);
+    });
+  </script>
+</body>
+</html>
